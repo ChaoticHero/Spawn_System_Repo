@@ -68,14 +68,6 @@ public class Client : MonoBehaviour
             Engine = false;
     }
 
-    public void ToggleChangeCargo(bool tickOn)
-    {
-        if (tickOn)
-            Cargo = true;
-        else
-            Cargo = false;
-    }
-
     private static IVehicle GetVehicle(VehicleRequirements requirements)
     {
         VehicleFactory factory = new VehicleFactory(requirements);
