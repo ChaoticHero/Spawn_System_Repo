@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,5 +12,3 @@ public class FamilyBike : IVehicle { }
 public class Car : IVehicle { }
 public class Motorbike : IVehicle { }
 public class Truck : IVehicle { }
-
-

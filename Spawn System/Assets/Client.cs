@@ -1,6 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Client : MonoBehaviour
 {
@@ -9,10 +11,19 @@ public class Client : MonoBehaviour
     public int Passengers;
     public bool Cargo;
 
-    // Start is called before the first frame update
+    private int WheelNum;
+    private int PeopleNum;
+
+    public TextMeshProUGUI Output;
+
+    public Toggle EngineToggle;
+    public Toggle CargoToggle;
+
+    public TMP_InputField WheelAmount;
+    public TMP_InputField PeopleAmount;
+
     void Start()
     {
-        // validate our data
         NumberOfWheels = Mathf.Max(NumberOfWheels, 1);
         Passengers = Mathf.Max(Passengers, 1);
         Engine = Cargo;
@@ -22,33 +33,51 @@ public class Client : MonoBehaviour
         requirements.Engine = Engine;
         requirements.Passengers = Passengers;
 
-        //IVehicle v = new Unicycle();
         IVehicle v = GetVehicle(requirements);
+        Output.text = v.ToString();
+
         Debug.Log(v);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Create()
     {
-        
+        NumberOfWheels = int.Parse(WheelAmount.text);
+        Passengers = int.Parse(PeopleAmount.text);
+
+        NumberOfWheels = Mathf.Max(NumberOfWheels, 1);
+        Passengers = Mathf.Max(Passengers, 1);
+        Engine = Cargo;
+
+        EngineToggle.isOn = Cargo;
+
+        VehicleRequirements requirements = new VehicleRequirements();
+        requirements.NumberOfWheels = NumberOfWheels;
+        requirements.Engine = Engine;
+        requirements.Passengers = Passengers;
+
+        IVehicle v = GetVehicle(requirements);
+        Output.text = v.ToString();
+        Debug.Log(v);
+    }
+
+    public void ToggleChangeEngine(bool tickOn)
+    {
+        if (tickOn)
+            Engine = true; 
+        else 
+            Engine = false;
+    }
+
+    public void ToggleChangeCargo(bool tickOn)
+    {
+        if (tickOn)
+            Cargo = true;
+        else
+            Cargo = false;
     }
 
     private static IVehicle GetVehicle(VehicleRequirements requirements)
     {
-        // based on requirements.Engine
-        // choose a motorvehicle factory or a cycle factory
-        // call create on the factory to get an appropriate vehicle
-        // and return it
-
-        //VehicleFactory factory = new VehicleFactory();
-
-        //if (requirements.Engine)
-        //{
-        //    return factory.MotorVehicleFactory().Create(requirements);
-        //}
-
-        //return factory.CycleFactory().Create(requirements);
-
         VehicleFactory factory = new VehicleFactory(requirements);
         return factory.Create();
     }

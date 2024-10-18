@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,9 +38,6 @@ public class MotorVehicleFactory : IVehicleFactory
 
 public abstract class AbstractVehicleFactory
 {
-    //public abstract IVehicleFactory CycleFactory();
-    //public abstract IVehicleFactory MotorVehicleFactory();
-
     public abstract IVehicle Create();
 }
 
@@ -48,22 +45,12 @@ public abstract class AbstractVehicleFactory
 
 public class VehicleFactory : AbstractVehicleFactory
 {
-    //public override IVehicleFactory CycleFactory()
-    //{
-    //    return new CycleFactory();
-    //}
-
-    //public override IVehicleFactory MotorVehicleFactory()
-    //{
-    //    return new MotorVehicleFactory();
-    //}
-
     private readonly IVehicleFactory _factory;
     private readonly VehicleRequirements _requirements;
 
     public VehicleFactory(VehicleRequirements requirements)
     {
-        _factory = requirements.Engine ? (IVehicleFactory) new MotorVehicleFactory() : new CycleFactory();
+        _factory = requirements.Engine ? (IVehicleFactory)new MotorVehicleFactory() : new CycleFactory();
         _requirements = requirements;
     }
 
@@ -72,5 +59,3 @@ public class VehicleFactory : AbstractVehicleFactory
         return _factory.Create(_requirements);
     }
 }
-
-
