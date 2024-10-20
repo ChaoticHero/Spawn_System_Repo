@@ -46,8 +46,8 @@ public class Client : MonoBehaviour
 
         NumberOfWheels = Mathf.Max(NumberOfWheels, 1);
         Passengers = Mathf.Max(Passengers, 1);
+        
         Engine = Cargo;
-
         EngineToggle.isOn = Cargo;
 
         VehicleRequirements requirements = new VehicleRequirements();
